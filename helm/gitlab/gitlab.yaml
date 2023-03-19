@@ -112,18 +112,18 @@ spec:
     name: gitlab
 
 ---
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-  name: gitlab
-  namespace: kube-ops
-  annotations:
-    kubernetes.io/ingress.class: traefik # 注意这个，需要事先安装好traefik，若是使用的nginx-ingress，则需要删除这两行
-spec:
-  rules:
-  - host: git.nashannaguo.com
-    http:
-      paths: /
-      - backend:
-          serviceName: gitlab
-          servicePort: http
+# apiVersion: extensions/v1beta1
+# kind: Ingress
+# metadata:
+#   name: gitlab
+#   namespace: kube-ops
+#   # annotations:
+#     # kubernetes.io/ingress.class: traefik # 注意这个，需要事先安装好traefik，若是使用的nginx-ingress，则需要删除这两行
+# spec:
+#   rules:
+#   - host: git.nashannaguo.com
+#     http:
+#       paths: /
+#       - backend:
+#           serviceName: gitlab
+#           servicePort: http

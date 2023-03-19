@@ -1,0 +1,29 @@
+# vim nginx-ingress.yaml
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: my-ingress-for-nginx  # Ingress 的名字，仅用于标识
+spec:
+  rules:                      # Ingress 中定义 L7 路由规则
+  - host: nashannaguo.com   # 根据 virtual hostname 进行路由（请使用您自己的域名）
+    http:
+      paths:                  # 按路径进行路由
+      - path: /
+        backend:
+          serviceName: nginx-service  # 指定后端的 Service 为之前创建的 nginx-service
+          servicePort: 80
+  - host: git.nashannaguo.com   # 根据 virtual hostname 进行路由（请使用您自己的域名）
+    http:
+      paths:                  # 按路径进行路由
+      - path: /
+        backend:
+          serviceName: gitlab  # 指定后端的 Service 为之前创建的 nginx-service
+          servicePort: http
+  - host: web.nashannaguo.com
+  - http:
+      paths:
+      - path: /
+        backend:
+          serviceName: react-app
+          servicePort: http
+
