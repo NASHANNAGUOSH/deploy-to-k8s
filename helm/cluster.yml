@@ -11,12 +11,12 @@ nodes:
     kind: InitConfiguration
     nodeRegistration:
       kubeletExtraArgs:
-        node-labels: "ingress-ready=true" 
+        node-labels: "ingress-ready=true"
   extraPortMappings:
-  - containerPort: 32600 
+  - containerPort: 80
     hostPort: 80
     protocol: TCP
-    listenAddress: "0.0.0.0"
+    #listenAddress: "0.0.0.0"
   # - containerPort: 30080
   #   hostPort: 80
   #   listenAddress: "0.0.0.0"
@@ -32,4 +32,3 @@ nodes:
   - containerPort: 443
     hostPort: 443
     protocol: TCP
-

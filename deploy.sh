@@ -43,10 +43,3 @@ data:
     host: "localhost:${reg_port}"
     help: "https://kind.sigs.k8s.io/docs/user/local-registry/"
 EOF
-
-kubectl create namespace gitlab
-kubectl create -f ./helm/gitlab/gitlab-redis.yaml 
-kubectl create -f ./helm/gitlab/gitlab-postgresql.yaml 
-kubectl create -f ./helm/gitlab/gitlab.yaml
-
-

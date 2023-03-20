@@ -100,7 +100,7 @@ metadata:
 spec:
   ports:
     - name: http
-      port: 80
+      port: 6666
       targetPort: http
       nodePort: 30080
     - name: ssh
