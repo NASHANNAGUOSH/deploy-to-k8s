@@ -32,6 +32,7 @@ if [ "$(docker inspect -f='{{json .NetworkSettings.Networks.kind}}' "${reg_name}
   docker network connect "kind" "${reg_name}"
 fi
 
+echo "👉开始部署local-registry......"
 cat <<EOF | kubectl apply -f -
 apiVersion: v1
 kind: ConfigMap

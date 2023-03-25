@@ -1,0 +1,8 @@
+gitlabUrl: "http://192.168.71.103:8888"
+runnerRegistrationToken: "yFNxyhbgXaHo-ib9Yb9L"
+rbac:
+  create: true
+  namespace: gitlab
+runners:
+  privileged: true
+

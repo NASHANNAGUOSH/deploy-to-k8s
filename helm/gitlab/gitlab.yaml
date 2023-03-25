@@ -21,6 +21,12 @@ spec:
         image: sameersbn/gitlab:11.8.1
         imagePullPolicy: IfNotPresent
         env:
+        - name: GITLAB_UNICORN_WORKERS
+          value: "10"
+        - name: GITLAB_SIDEKIQ_CONCURRENCY
+          value: "50"
+        - name: GITLAB_POSTGRESQL_SHARED_BUFFERS
+          value: 4GB
         - name: TZ
           value: Asia/Shanghai
         - name: GITLAB_TIMEZONE
@@ -102,12 +108,33 @@ spec:
     - name: http
       port: 6666
       targetPort: http
-#      nodePort: 30080
+      # nodePort: 30081
+    # - name: ssh
+    #   port: 22
+    #   targetport: ssh
+      # nodePort: 30022
+  # type: NodePort
+  selector:
+    name: gitlab
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gitlab-ssh
+  namespace: gitlab
+  labels:
+    name: gitlab-ssh
+spec:
+  ports:
+    # - name: http
+    #   port: 6666
+    #   targetPort: http
+      # nodePort: 30081
     - name: ssh
       port: 22
       targetPort: ssh
-#      nodePort: 30022
-#  type: NodePort
+      nodePort: 30022
+  type: NodePort
   selector:
     name: gitlab
 
