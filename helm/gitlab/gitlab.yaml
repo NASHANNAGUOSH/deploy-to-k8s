@@ -16,6 +16,11 @@ spec:
       labels:
         name: gitlab
     spec:
+      hostAliases:
+       - ip: "192.168.71.103"
+         hostnames:
+          - "web.nashannaguo.com"
+          - "git.nashannaguo.com"
       containers:
       - name: gitlab
         image: sameersbn/gitlab:11.8.1

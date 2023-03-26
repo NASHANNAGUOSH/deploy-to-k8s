@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # GitLab 实例的 URL 和 Runner 注册令牌
-GITLAB_URL="http://192.168.71.103:8888/"
+GITLAB_URL="http://git.nashannaguo.com/"
 # 注册令牌（可以在项目的 Settings > CI/CD > Runners 或 GitLab 管理员区域的 Admin Area > Overview > Runners 中找到）。
 # Runner 的描述，例如 "My Mac Runner"。
-REGISTRATION_TOKEN="gbWeRo_hE5yNh_oEyS_4"
+REGISTRATION_TOKEN="gbWeRo_hE5yNh_oEyS_41"
 
 
 # 通过 Homebrew 安装 GitLab Runner
@@ -21,7 +21,10 @@ gitlab-runner register \
     --registration-token "$REGISTRATION_TOKEN" \
     --executor "shell" \
     --description "My Mac Runner" \
-    --tag-list "shell"
+    --run-untagged \
+    --tag-list "shell" \
+    --locked=false
+
 
 # 启动 GitLab Runner
 echo "Starting GitLab Runner..."

@@ -1,8 +1,62 @@
-gitlabUrl: "http://192.168.71.103:8888"
-runnerRegistrationToken: "yFNxyhbgXaHo-ib9Yb9L"
-rbac:
-  create: true
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gitlab-runner
   namespace: gitlab
-runners:
-  privileged: true
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gitlab-runner
+  template:
+    metadata:
+      labels:
+        app: gitlab-runner
+    spec:
+      hostAliases:
+       - ip: "192.168.71.103"
+         hostnames:
+          - "web.nashannaguo.com"
+          - "git.nashannaguo.com"
+      containers:
+      - name: gitlab-runner
+        image: gitlab/gitlab-runner:latest
+        env:
+        - name: GITLAB_URL
+          value: "http://git.nashannaguo.com/"
+        - name: REGISTRATION_TOKEN
+          value: "wTNz7nqyUsNHSscxirhD"
+        - name: RUNNER_NAME
+          value: "my-runner"
+        - name: RUNNER_EXECUTOR
+          value: "docker"
+        - name: KUBERNETES_NAMESPACE
+          value: "gitlab"
+        volumeMounts:
+        - name: config
+          mountPath: /etc/gitlab-runner
+      volumes:
+      - name: config
+        configMap:
+          name: gitlab-runner-config
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: gitlab-runner-config
+  namespace: gitlab
+data:
+  config.toml: |
+    concurrent = 1
+    check_interval = 0
+    log_level = "debug"
 
+    [session_server]
+      session_timeout = 1800
+
+    [[runners]]
+      name = "my-runner"
+      id = 1
+      url = "http://git.nashannaguo.com/"
+      token = "wTNz7nqyUsNHSscxirhD"
+      executor = "docker"
